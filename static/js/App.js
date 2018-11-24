@@ -11,7 +11,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {createMuiTheme} from "@material-ui/core";
 import {green} from "@material-ui/core/colors";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import {Menu, Home, Subject, Storage, Settings, WatchLater} from '@material-ui/icons';
+import {Menu, Home, Subject, Storage, Settings, WatchLater, AvTimer} from '@material-ui/icons';
+import Activities from './Activities';
 
 const drawerWidth = 240;
 
@@ -22,7 +23,7 @@ export default class App extends Component {
             section: 'Home',
             open: true,
             color: green,
-            theme: 'dark',
+            theme: 'light',
         };
     }
 
@@ -42,6 +43,7 @@ export default class App extends Component {
                         {this.listItem(Storage, 'Categories')}
                         {this.listItem(Subject, 'History')}
                         {this.listItem(Settings, 'Settings')}
+                        {this.listItem(AvTimer, 'Activities')}
                     </List>
                 </Drawer>
                 <AppBar
@@ -74,7 +76,7 @@ export default class App extends Component {
                     ),
                     backgroundColor: theme.palette.background.paper
                 }}>
-                    {App.getContent()}
+                    {this.getContent()}
                 </div>
             </MuiThemeProvider>
         );
@@ -96,9 +98,14 @@ export default class App extends Component {
         );
     }
 
-    static getContent() {
+    getContent() {
         return (
             <div style={{overflow: 'auto', flex: 1}}>
+            {
+                this.state.section === 'Activities'
+                ? <Activities/>
+                : null
+            }
             </div>
         );
     }
